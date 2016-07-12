@@ -15,7 +15,6 @@ use Asm\Ansible\Command\AnsibleGalaxyInterface;
 use Asm\Ansible\Command\AnsiblePlaybook;
 use Asm\Ansible\Command\AnsiblePlaybookInterface;
 use Asm\Ansible\Exception\CommandException;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
 /**
@@ -128,7 +127,7 @@ final class Ansible
     {
         // normally ansible is in /usr/local/bin/*
         if ('' === $command) {
-            if (null !== shell_exec('which ' . $default)) {
+            if (true === shell_exec('which ' . $default)) {
                 $command = $default;
             } else { // not testable without ansible installation
                 throw new CommandException('No ' . $default . ' executable present in PATH!');
